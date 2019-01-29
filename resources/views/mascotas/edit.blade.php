@@ -4,21 +4,22 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Agregar Mascota</title>
+    <title>Editar Mascota</title>
 </head>
 <body>
-    <form action="{{route('mascotas.store')}}" method="post">
+    <form action="{{route('mascotas.update',$mascota->id)}}" method="post">
       @csrf
+      @method('PUT')
        <label> Especie </label>
        <select name="especie" required>
-          <option disable selected value="">Elige una Especie</option>
+          <option disable value="">Elige una Especie</option>
           @foreach($especies as $especie)
-          <option value="{{$especie->id}}">{{$especie->nombre}}</option>
+          <option value="{{$especie->id}}" @if($especie->id == $mascota->id_especie)  selected @endif > {{$especie->nombre}}</option>
           @endforeach
        </select>
        <br>
        <label> Nombre</label>
-       <input required type="text" name="nombre" placeholder="Nombre de la mascota">
+       <input required type="text" name="nombre" placeholder="Nombre de la mascota" value="{{$mascota->nombre}}">
        <br>
        <label> Precio</label>
        <input required type="text" name="precio" placeholder="Precio de la mascota">
@@ -26,7 +27,7 @@
        <label> Fecha de Nacimiento</label>
        <input type="date" name="nacimiento">
        <br>
-       <button type="submit">Crear una nueva mascota</button>
+       <button type="submit">Modificar la mascota</button>
     </form>
 </body>
 </html>
